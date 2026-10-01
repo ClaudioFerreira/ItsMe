@@ -1,0 +1,13 @@
+services:
+  its-me-web:
+    container_name: its-me-web
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "3000:3000"
