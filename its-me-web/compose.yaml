@@ -11,3 +11,17 @@ services:
       HOSTNAME: 0.0.0.0
     ports:
       - "3000:3000"
+    networks:
+      - traefik # Conecta o seu site à rede do Traefik da Hostinger
+    labels:
+      - "traefik.enable=true"
+      # Configura o domínio principal e o www
+      - "traefik.http.routers.itsme.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
+      - "traefik.http.routers.itsme.entrypoints=websecure" # Ativa HTTPS automaticamente
+      - "traefik.http.routers.itsme.tls.certresolver=myresolver" # Usa o emissor de SSL do Traefik
+      # Informa ao Traefik qual porta interna o container escuta
+      - "traefik.http.services.itsme.loadbalancer.server.port=3000"
+
+networks:
+  traefik:
+    external: true # Indica que a rede já existe na VPS (criada pelo Traefik)
