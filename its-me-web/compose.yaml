@@ -12,16 +12,34 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - traefik # Conecta o seu site à rede do Traefik da Hostinger
+      - traefik
     labels:
       - "traefik.enable=true"
-      # Configura o domínio principal e o www
-      - "traefik.http.routers.itsme.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
-      - "traefik.http.routers.itsme.entrypoints=websecure" # Ativa HTTPS automaticamente
-      - "traefik.http.routers.itsme.tls.certresolver=myresolver" # Usa o emissor de SSL do Traefik
-      # Informa ao Traefik qual porta interna o container escuta
-      - "traefik.http.services.itsme.loadbalancer.server.port=3000"
+      
+      # 1. Roteador para HTTPS (Tráfego seguro)
+      - "traefik.http.routers.itsme-secure.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
+      - "traefik.http.routers.itsme-secure.entrypoints=websecure"
+      - "traefik.http.routers.itsme-secure.tls.certresolver=myresolver"
+      # Ativa o middleware de redirecionamento WWW -> Naked neste roteador
+      - "traefik.http.routers.itsme-secure.middlewares=redirect-www-to-naked"
+      
+      # 2. Roteador para HTTP (Redireciona automaticamente para HTTPS)
+      - "traefik.http.routers.itsme-http.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
+      - "traefik.http.routers.itsme-http.entrypoints=web"
+      - "traefik.http.routers.itsme-http.middlewares=redirect-to-https"
+
+      # 3. Definição dos Middlewares
+      # Middleware para forçar HTTPS
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
+      # Middleware para redirecionar de WWW para o domínio limpo (Naked)
+      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.regex=^https://www\\.(.*)"
+      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.replacement=https://\$\${1}"
+      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.permanent=true"
+
+      # 4. Configuração do Serviço
+      - "traefik.http.services.itsme-service.loadbalancer.server.port=3000"
 
 networks:
   traefik:
-    external: true # Indica que a rede já existe na VPS (criada pelo Traefik)
+    external: true
