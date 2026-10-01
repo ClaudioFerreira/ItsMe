@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@import "tailwindcss";
+
+:root {
+  --color-ink: #151719;
+  --color-paper: #f1efe8;
+  --color-paper-dark: #e7e4da;
+  --color-moss: #b5c9a5;
+  --color-rust: #b75d4d;
+  --color-slate: #7c8798;
+  --color-muted: #777a73;
+  --color-border: rgba(21, 23, 25, 0.14);
+}
+
+@theme inline {
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "DM Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: "DM Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  color: var(--color-ink);
+  background: var(--color-moss);
+}
+
+.page-shell {
+  width: min(100% - 64px, 1180px);
+  margin-inline: auto;
+}
+
+.display-font {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.mono-font {
+  font-family: "DM Mono", monospace;
+}
+
+.eyebrow {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3.5rem, 9vw, 7.5rem);
+  font-weight: 600;
+  letter-spacing: -0.075em;
+  line-height: 0.94;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--color-muted);
+}
+
+.journal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--color-ink);
+  padding-bottom: 5px;
+  font-size: 14px;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.journal-link:hover {
+  color: #697f58;
+  border-color: #697f58;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #819d70;
+  box-shadow: 0 0 0 4px rgba(129, 157, 112, 0.15);
+}
+
+.decorative-line {
+  height: 1px;
+  background: var(--color-border);
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    width: min(100% - 40px, 1180px);
+  }
+
+  .hero-title {
+    font-size: clamp(3.25rem, 15vw, 5.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
