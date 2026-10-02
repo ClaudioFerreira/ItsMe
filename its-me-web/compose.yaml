@@ -9,35 +9,33 @@ services:
       NODE_ENV: production
       PORT: 3000
       HOSTNAME: 0.0.0.0
-    ports:
-      - "3000:3000"
     networks:
       - traefik
     labels:
       - "traefik.enable=true"
-      
-      # 1. Roteador para HTTPS (Tráfego seguro)
+      - "traefik.docker.network=traefik"
+
+      # HTTPS
       - "traefik.http.routers.itsme-secure.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
       - "traefik.http.routers.itsme-secure.entrypoints=websecure"
-      - "traefik.http.routers.itsme-secure.tls.certresolver=myresolver"
-      # Ativa o middleware de redirecionamento WWW -> Naked neste roteador
+      - "traefik.http.routers.itsme-secure.tls=true"
+      - "traefik.http.routers.itsme-secure.tls.certresolver=letsencrypt"
       - "traefik.http.routers.itsme-secure.middlewares=redirect-www-to-naked"
-      
-      # 2. Roteador para HTTP (Redireciona automaticamente para HTTPS)
+      - "traefik.http.routers.itsme-secure.service=itsme-service"
+
+      # HTTP -> HTTPS
       - "traefik.http.routers.itsme-http.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
       - "traefik.http.routers.itsme-http.entrypoints=web"
       - "traefik.http.routers.itsme-http.middlewares=redirect-to-https"
 
-      # 3. Definição dos Middlewares
-      # Middleware para forçar HTTPS
+      # Middlewares
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
-      # Middleware para redirecionar de WWW para o domínio limpo (Naked)
       - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.regex=^https://www\\.(.*)"
-      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.replacement=https://\$\${1}"
+      - 'traefik.http.middlewares.redirect-www-to-naked.redirectregex.replacement=https://$${1}'
       - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.permanent=true"
 
-      # 4. Configuração do Serviço
+      # Serviço interno do Next.js
       - "traefik.http.services.itsme-service.loadbalancer.server.port=3000"
 
 networks:
