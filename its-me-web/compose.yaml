@@ -9,35 +9,12 @@ services:
       NODE_ENV: production
       PORT: 3000
       HOSTNAME: 0.0.0.0
-    networks:
-      - traefik
+    ports:
+      - "3000:3000"
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
-
-      # HTTPS
-      - "traefik.http.routers.itsme-secure.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
-      - "traefik.http.routers.itsme-secure.entrypoints=websecure"
-      - "traefik.http.routers.itsme-secure.tls=true"
-      - "traefik.http.routers.itsme-secure.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.itsme-secure.middlewares=redirect-www-to-naked"
-      - "traefik.http.routers.itsme-secure.service=itsme-service"
-
-      # HTTP -> HTTPS
-      - "traefik.http.routers.itsme-http.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
-      - "traefik.http.routers.itsme-http.entrypoints=web"
-      - "traefik.http.routers.itsme-http.middlewares=redirect-to-https"
-
-      # Middlewares
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
-      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.regex=^https://www\\.(.*)"
-      - 'traefik.http.middlewares.redirect-www-to-naked.redirectregex.replacement=https://$${1}'
-      - "traefik.http.middlewares.redirect-www-to-naked.redirectregex.permanent=true"
-
-      # Serviço interno do Next.js
-      - "traefik.http.services.itsme-service.loadbalancer.server.port=3000"
-
-networks:
-  traefik:
-    external: true
+      - "traefik.http.routers.itsme.rule=Host(`claudioferreira.tech`) || Host(`www.claudioferreira.tech`)"
+      - "traefik.http.routers.itsme.entrypoints=websecure"
+      - "traefik.http.routers.itsme.tls=true"
+      - "traefik.http.routers.itsme.tls.certresolver=letsencrypt"
+      - "traefik.http.services.itsme.loadbalancer.server.port=3000"
