@@ -112,7 +112,7 @@ export default function Home() {
           </span>
 
           <span className="text-xs text-[#777a73]">
-            Sorocaba, Brazil
+            Sorocaba, Brazil <span aria-hidden="true">·</span> v1.0.1
           </span>
         </div>
       </footer>
