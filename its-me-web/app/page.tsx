@@ -1,4 +1,3 @@
-
 const socialLinks = [
   {
     label: "LinkedIn",
@@ -37,14 +36,14 @@ export default function Home() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <a
             href="#top"
-            aria-label="Claudio Ferreira - início"
+            aria-label="Claudio Ferreira — back to top"
             className="display-font text-lg font-semibold tracking-tight"
           >
             CF<span style={{ color: "var(--color-rust)" }}>.</span>
           </a>
 
           <nav
-            aria-label="Main navigation"
+            aria-label="Primary navigation"
             className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-x-7"
           >
             <a href="#about" className="journal-link">
@@ -71,17 +70,18 @@ export default function Home() {
       {/* Hero */}
       <section
         id="top"
+        aria-labelledby="hero-title"
         className="page-shell flex min-h-[calc(100vh-110px)] flex-col justify-center py-20 sm:py-28"
       >
         <div className="mb-10 flex items-center gap-3">
-          <span className="status-dot" />
+          <span className="status-dot" aria-hidden="true" />
 
           <span className="eyebrow text-[#777a73]">
             Frontend Engineer · Sorocaba, Brazil
           </span>
         </div>
 
-        <h1 className="hero-title">
+        <h1 id="hero-title" className="hero-title">
           Hello,
           <span>I&apos;m Claudio.</span>
         </h1>
@@ -120,7 +120,10 @@ export default function Home() {
             </div>
           </div>
 
-          <aside className="border-l border-[#151719]/15 pl-5">
+          <aside
+            aria-label="A note from Claudio"
+            className="border-l border-[#151719]/15 pl-5"
+          >
             <p className="eyebrow text-[#777a73]">A note from Claudio</p>
 
             <p className="mt-4 text-sm leading-relaxed text-[#555850]">
@@ -132,7 +135,11 @@ export default function Home() {
       </section>
 
       {/* About */}
-      <section id="about" className="page-shell scroll-mt-10 py-24 sm:py-32">
+      <section
+        id="about"
+        aria-labelledby="about-title"
+        className="page-shell scroll-mt-10 py-24 sm:py-32"
+      >
         <div className="decorative-line mb-10" />
 
         <div className="grid gap-10 md:grid-cols-[220px_1fr] md:gap-16">
@@ -141,7 +148,10 @@ export default function Home() {
           </div>
 
           <div className="max-w-3xl">
-            <h2 className="display-font text-3xl font-medium tracking-tight sm:text-5xl">
+            <h2
+              id="about-title"
+              className="display-font text-3xl font-medium tracking-tight sm:text-5xl"
+            >
               Beyond the code.
             </h2>
 
@@ -169,14 +179,21 @@ export default function Home() {
       </section>
 
       {/* Selected Work */}
-      <section id="work" className="page-shell scroll-mt-10 py-24 sm:py-32">
+      <section
+        id="work"
+        aria-labelledby="work-title"
+        className="page-shell scroll-mt-10 py-24 sm:py-32"
+      >
         <div className="decorative-line mb-10" />
 
         <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="eyebrow text-[#777a73]">Selected Work</p>
 
-            <h2 className="display-font mt-3 text-3xl font-medium tracking-tight sm:text-5xl">
+            <h2
+              id="work-title"
+              className="display-font mt-3 text-3xl font-medium tracking-tight sm:text-5xl"
+            >
               Things I&apos;ve built.
             </h2>
           </div>
@@ -195,7 +212,10 @@ export default function Home() {
             >
               <div>
                 <div className="mb-10 flex items-center justify-between gap-4">
-                  <span className="mono-font text-xs text-[#777a73]">
+                  <span
+                    className="mono-font text-xs text-[#777a73]"
+                    aria-hidden="true"
+                  >
                     0{index + 1}
                   </span>
 
@@ -208,9 +228,7 @@ export default function Home() {
                   {project.name}
                 </h3>
 
-                <p className="mt-2 text-sm text-[#777a73]">
-                  {project.type}
-                </p>
+                <p className="mt-2 text-sm text-[#777a73]">{project.type}</p>
 
                 <p className="mt-6 max-w-md text-sm leading-relaxed text-[#555850] sm:text-base">
                   {project.description}
@@ -218,7 +236,10 @@ export default function Home() {
               </div>
 
               <div className="mt-10 flex flex-col gap-5">
-                <div className="flex flex-wrap gap-2">
+                <div
+                  className="flex flex-wrap gap-2"
+                  aria-label={`${project.name} technologies`}
+                >
                   {project.stack.map((technology) => (
                     <span
                       key={technology}
@@ -253,6 +274,7 @@ export default function Home() {
       {/* Developer's Journal */}
       <section
         id="journal"
+        aria-labelledby="journal-title"
         className="page-shell scroll-mt-10 py-24 sm:py-32"
       >
         <div className="decorative-line mb-10" />
@@ -265,7 +287,10 @@ export default function Home() {
           <div className="border border-[#151719]/15 p-7 sm:p-10">
             <div className="flex flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
               <div className="max-w-2xl">
-                <h2 className="display-font text-3xl font-medium tracking-tight sm:text-5xl">
+                <h2
+                  id="journal-title"
+                  className="display-font text-3xl font-medium tracking-tight sm:text-5xl"
+                >
                   Notes, experiments &amp; things I&apos;m learning.
                 </h2>
 
@@ -284,7 +309,11 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="page-shell scroll-mt-10 py-24 sm:py-32">
+      <section
+        id="contact"
+        aria-labelledby="contact-title"
+        className="page-shell scroll-mt-10 py-24 sm:py-32"
+      >
         <div className="decorative-line mb-10" />
 
         <div className="grid gap-10 md:grid-cols-[220px_1fr] md:gap-16">
@@ -293,7 +322,10 @@ export default function Home() {
           </div>
 
           <div className="max-w-3xl">
-            <h2 className="display-font text-3xl font-medium tracking-tight sm:text-5xl">
+            <h2
+              id="contact-title"
+              className="display-font text-3xl font-medium tracking-tight sm:text-5xl"
+            >
               Have something in mind?
             </h2>
 
@@ -335,7 +367,8 @@ export default function Home() {
           </span>
 
           <span className="text-xs text-[#777a73]">
-            Sorocaba, Brazil <span aria-hidden="true">·</span> v1.0.1
+            Sorocaba, Brazil{" "}
+            <span aria-hidden="true">·</span> v1.0.1
           </span>
         </div>
       </footer>

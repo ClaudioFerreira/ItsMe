@@ -1,0 +1,19 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 64 64"
+  fill="none"
+>
+  <rect width="64" height="64" rx="12" fill="#151719" />
+  <text
+    x="32"
+    y="39"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="25"
+    font-weight="700"
+    fill="#F1EFE8"
+  >
+    CF
+  </text>
+  <circle cx="52" cy="48" r="4" fill="#B75D4D" />
+</svg>

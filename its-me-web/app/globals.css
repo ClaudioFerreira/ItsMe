@@ -42,6 +42,11 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 4px;
+}
+
 ::selection {
   color: var(--color-ink);
   background: var(--color-moss);
@@ -95,6 +100,11 @@ a {
 .journal-link:hover {
   color: #697f58;
   border-color: #697f58;
+}
+
+.journal-link:focus-visible {
+  color: var(--color-rust);
+  border-color: var(--color-rust);
 }
 
 .status-dot {
