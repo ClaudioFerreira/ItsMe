@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "its-me-web/**"
+      - "apps/web/**"
       - ".github/workflows/publish-image.yml"
   workflow_dispatch:
 
@@ -38,8 +38,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
-          context: ./its-me-web
-          file: ./its-me-web/dockerfile
+          context: ./apps/web
+          file: ./apps/web/dockerfile
           push: true
           tags: |
             ghcr.io/claudioferreira/its-me-web:latest
